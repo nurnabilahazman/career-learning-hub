@@ -1,0 +1,26 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bell Azman | Fictional operations review</title><link rel="stylesheet" href="portfolio.css"><body><header><a class="logo" href="portfolio.html">Bell Azman / Selected work</a><nav aria-label="Main navigation"><a href="portfolio.html">Portfolio</a><a href="./">Career Hub</a></nav></header><main><section class="hero"><p class="kicker">Original portfolio demo · fictional operations data</p><h1>Monthly operations review</h1><p class="lede">A small dashboard for reviewing service performance, spotting incomplete inputs and turning the result into a follow-up.</p></section>
+<section class="panel"><h2>Performance snapshot</h2><div class="inputs"><label>Period<select id="period"><option>October</option><option>September</option><option>August</option></select></label><label>Team<select id="team"><option>All teams</option><option>Operations</option><option>Support</option><option>Fulfilment</option></select></label><label>Trend<select id="measure"><option>On-time rate</option><option>Cases completed</option><option>Open at month end</option></select></label></div><div id="metrics" class="grid" aria-live="polite"></div><p id="finding"></p></section>
+<section class="panel"><p class="kicker">Trend</p><h2 id="trend-title">On-time rate by month</h2><div id="trend" class="cashline"></div><p class="tag">On-time rate uses completed cases as its denominator. Rows with no on-time count are excluded from that rate and still appear in completed cases and month-end open totals.</p></section>
+<section class="panel"><h2>Source rows and review checks</h2><div class="table"><table><thead><tr><th>Team</th><th>Completed</th><th>On time</th><th>Open</th><th>Check</th></tr></thead><tbody id="rows"></tbody></table></div><div class="actions"><button id="export">Export filtered sample CSV</button></div></section></main><footer>Bell Azman · Finance, analytics and building tools people can use</footer><script>
+const data=[
+ ['August','Operations',240,226,21],['August','Support',180,164,25],['August','Fulfilment',200,184,17],
+ ['September','Operations',250,237,19],['September','Support',195,170,31],['September','Fulfilment',206,192,13],
+ ['October','Operations',281,267,20],['October','Support',211,178,43],['October','Fulfilment',210,null,15]
+];
+const months=['August','September','October'];const el=id=>document.getElementById(id);const percent=n=>n===null?'Pending':(100*n).toFixed(1)+'%';
+const selected=()=>data.filter(r=>r[0]===el('period').value&&(el('team').value==='All teams'||r[1]===el('team').value));
+function totals(rows){const valid=rows.filter(r=>r[3]!==null);const covered=valid.reduce((a,r)=>a+r[2],0);return {done:rows.reduce((a,r)=>a+r[2],0),rate:covered?valid.reduce((a,r)=>a+r[3],0)/covered:null,open:rows.reduce((a,r)=>a+r[4],0),covered,missing:rows.length-valid.length};}
+function element(tag,text){const x=document.createElement(tag);x.textContent=text;return x;}
+function update(){
+ const rows=selected(),x=totals(rows), current=el('period').value;
+ el('metrics').replaceChildren(...[['Cases completed',x.done],['On-time rate',percent(x.rate)],['Open at month end',x.open]].map(([label,value])=>{const a=element('article','');a.className='card';const v=element('strong',value);v.className='score';a.append(element('p',label),v);return a;}));
+ el('finding').textContent=x.missing?'Review needed: '+x.missing+' team has a missing on-time count. Rate coverage is '+x.covered+' of '+x.done+' completed cases. Confirm the source before comparing periods.':(x.rate===null?'Awaiting complete data.':x.rate<.9?'On-time rate is below 90%. Check the open queue and the largest backlog drivers.':'On-time rate meets the 90% target for the displayed period.');
+ el('rows').replaceChildren(...rows.map(r=>{const t=element('tr','');for(const value of [r[1],r[2],r[3]??'Missing',r[4],r[3]===null?'HOLD for on-time rate':'Ready'])t.append(element('td',value));return t;}));
+ const measure=el('measure').value;el('trend-title').textContent=measure+' by month';
+ const entries=months.map(month=>{const t=totals(data.filter(r=>r[0]===month&&(el('team').value==='All teams'||r[1]===el('team').value)));return [month,measure==='On-time rate'?t.rate:measure==='Cases completed'?t.done:t.open,t.missing];});
+ const max=measure==='On-time rate'?1:Math.max(1,...entries.map(x=>x[1]||0));
+ el('trend').replaceChildren(...entries.map(([month,value,missing])=>{const item=element('div','');item.className='cashrow';const b=element('span','');b.className='bar'+(missing&&measure==='On-time rate'?' negative':'');b.style.width=((value||0)/max*100)+'%';item.append(element('span',month),b,element('strong',measure==='On-time rate'?percent(value)+(missing&&value!==null?' *':''):String(value)));return item;}));
+}
+for(const id of ['period','team','measure'])el(id).onchange=update;
+el('export').onclick=()=>{const csv=['Period,Team,Completed,On time,Open',...selected().map(row=>row.join(','))].join('\n');const u=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));const a=document.createElement('a');a.href=u;a.download='Bell_Fictional_Operations_Review.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};update();
+</script></body></html>
