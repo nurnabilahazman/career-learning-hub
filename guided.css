@@ -140,3 +140,32 @@
 .project-preview img{display:block;width:100%;aspect-ratio:1050/650;object-fit:cover;object-position:top}
 .project-card .project-visual{min-height:92px;padding:10px}
 .project-card .project-visual>div{padding:8px}
+
+/* Practice controls: tap and see the result without scrolling to the end. */
+.cash-quick,.lab-how{border:1px solid #c9ded4;border-radius:12px;padding:20px;background:#f5faf6;margin:18px 0 24px}
+.cash-quick h3{margin:8px 0 10px}.cash-quick>p,.lab-how>p{margin:8px 0 16px}
+.cash-presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.cash-presets button{min-height:54px;font-size:15px;white-space:normal;line-height:1.4}
+.cash-presets button.active{background:#2f7768;color:white;border-color:#2f7768;font-weight:700}
+.cash-live-metrics{gap:12px!important;margin:16px 0!important;align-items:stretch}
+.cash-live-metrics .stat{padding:14px;min-width:0;background:white}
+.cash-live-metrics .stat b{font-size:clamp(19px,2.4vw,29px)}
+.cash-live-explain{margin-bottom:0;line-height:1.6}
+.lab-how .live-preview,.field-effect{background:#e6f1ea;color:#215c4c;padding:12px 14px;border-radius:7px;font-weight:650;line-height:1.55;font-size:14px;overflow-wrap:anywhere}
+.lab-how .live-preview{margin-top:16px}
+.lab-field{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 8px;align-items:start}
+.lab-field>label{font-size:15px;line-height:1.45;min-width:0}
+.lab-field output{font-weight:750;white-space:nowrap}
+.stepper{display:flex;gap:8px;align-items:center;grid-column:1/-1;flex-wrap:wrap}
+.stepper button{width:43px;height:43px;min-width:43px;padding:0;font-size:23px;font-weight:600;line-height:1}
+.stepper button:disabled{opacity:.4}
+.stepper input[type=number]{width:110px;min-width:75px;max-width:100%;height:43px;padding:6px 10px;text-align:center;font-variant-numeric:tabular-nums}
+.optional-slider{grid-column:1/-1;border:0;padding:3px 0;margin:0}
+.optional-slider summary{font-size:12px;color:#526b63;cursor:pointer}
+.optional-slider input[type=range]{display:block;width:100%;margin:10px 0;touch-action:pan-y;accent-color:#2f7768}
+.range-limits{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.field-effect{grid-column:1/-1;margin-top:3px;font-size:13px}
+.field-effect[hidden]{display:none}
+.all-assumptions-title{grid-column:1/-1;margin:0!important}
+.cash-lab-layout>.fields{display:grid}
+@media(max-width:650px){.cash-presets,.cash-live-metrics{grid-template-columns:minmax(0,1fr)!important}.cash-quick,.lab-how{padding:14px}.cash-live-metrics .stat{padding:12px}.cash-presets button{min-height:45px}.stepper input[type=number]{width:100px}}
