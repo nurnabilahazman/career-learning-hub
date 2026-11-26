@@ -169,3 +169,25 @@
 .all-assumptions-title{grid-column:1/-1;margin:0!important}
 .cash-lab-layout>.fields{display:grid}
 @media(max-width:650px){.cash-presets,.cash-live-metrics{grid-template-columns:minmax(0,1fr)!important}.cash-quick,.lab-how{padding:14px}.cash-live-metrics .stat{padding:12px}.cash-presets button{min-height:45px}.stepper input[type=number]{width:100px}}
+/* Interview presentation: keep six focused pages, hide archived study material by default. */
+.study-archive-link{border-top:1px solid var(--line);margin-top:16px;padding-top:12px}
+.study-archive-link a{font-size:13px;font-weight:700}
+.presentation-orientation{display:none}
+.sharing.orientation-route .lesson>.panel:not(.presentation-orientation),.sharing.orientation-route .lesson>.accounting-bridge,.sharing.orientation-route .lesson>.lead{display:none}
+.sharing.orientation-route .lesson>.presentation-orientation{display:block}
+.impact-banner{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:14px;align-items:center;margin:18px 0 24px;background:#f2f7f3;border:1px solid #cdded5;border-radius:13px;padding:20px}
+.impact-banner>div{min-width:0}.impact-banner small{display:block;letter-spacing:.07em;color:var(--muted);font-size:11px;font-weight:750}
+.impact-banner strong{display:block;font-size:clamp(23px,3.5vw,42px);line-height:1.2;color:var(--teal);margin:10px 0;overflow-wrap:anywhere}
+.impact-banner p{margin:0;font-size:14px}.impact-arrow{font-size:26px;color:var(--teal)}
+.manual-map{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0 22px}
+.manual-map>div{display:flex;gap:8px;align-items:center;border:1px solid var(--line);padding:10px;background:#fff;border-radius:7px;font-size:13px;min-width:0}
+.manual-map>div span{color:#657b73;font-size:11px;font-weight:750}
+.one-run{display:flex;gap:14px;align-items:center;margin:20px 0;background:#e1efe6;border:1px solid #bad8c6;padding:18px;border-radius:10px}
+.run-icon{display:grid;place-items:center;background:#247466;color:white;width:46px;height:46px;border-radius:10px;flex-shrink:0}
+.one-run p{margin:4px 0 0;font-size:14px}
+.engine-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.engine-map>div{display:flex;gap:12px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:16px;min-width:0}
+.engine-map>div>span{font-size:15px;font-weight:750;color:var(--teal);flex-shrink:0}.engine-map h3{margin:0 0 7px;font-size:17px}.engine-map p{margin:0;font-size:14px;line-height:1.6}
+.engineering-cases{display:grid;gap:10px}.engineering-cases details{padding:14px;border:1px solid var(--line);border-radius:8px}
+@media(max-width:620px){.impact-banner{grid-template-columns:minmax(0,1fr);gap:9px}.impact-arrow{transform:rotate(90deg);justify-self:start}.manual-map,.engine-map{grid-template-columns:minmax(0,1fr)}}
+.sharing.core-presentation-route .beginner-guide,.sharing.core-presentation-route .beginner-check{display:none}
